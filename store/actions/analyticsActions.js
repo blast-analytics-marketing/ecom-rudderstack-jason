@@ -211,9 +211,9 @@ export const trackRemoveFromCart = (product, quantity, selected_options) => {
 export const trackViewCart = (products, cart_id) => {
   const ecomObj =  {
     cart_id,
-    items: []
+    products: []
   };
-  ecomObj.items = products.map((
+  ecomObj.products = products.map((
     {
       name,
       id,
@@ -224,22 +224,22 @@ export const trackViewCart = (products, cart_id) => {
     }
   ) => {
     const prod =  {
-      item_id: id,
-      item_name: name,
-      currency: 'USD',
-      item_brand: "Blast",
+      product_id: id,
+      sku: id,
+      name: name,
+      brand: "Blast",
       price: parseFloat(price.formatted),
-      item_variant: selected_options.map(({group_name, option_name}) => `${group_name}: ${option_name}`).sort().join(),
+      variant: selected_options.map(({group_name, option_name}) => `${group_name}: ${option_name}`).sort().join(),
       quantity
     };
-    categories.forEach((cat, i) => prod[i > 0 ? `item_category${i+1}` : 'item_category'] = cat.name);
+    categories.forEach((cat, i) => prod[i > 0 ? `category${i+1}` : 'category'] = cat.name);
     return prod;
   });
   return {
     type: TRACK_VIEW_CART,
     payload: {
-      event: "view_cart",
-      ecommerce: ecomObj,
+      event: "Cart Viewed",
+      properties: ecomObj,
     },
   }
 }
@@ -250,9 +250,10 @@ export const trackViewCart = (products, cart_id) => {
 export const trackBeginCheckout = (products, cart_id) => {
   const ecomObj =  {
     cart_id,
-    items: []
+    currency: "USD",
+    products: []
   };
-  ecomObj.items = products.map((
+  ecomObj.products = products.map((
     {
       name,
       id,
@@ -263,22 +264,22 @@ export const trackBeginCheckout = (products, cart_id) => {
     }
   ) => {
     const prod =  {
-      item_id: id,
-      item_name: name,
-      currency: 'USD',
-      item_brand: "Blast",
+      product_id: id,
+      sku: id,
+      name: name,
+      brand: "Blast",
       price: parseFloat(price.formatted),
-      item_variant: selected_options.map(({group_name, option_name}) => `${group_name}: ${option_name}`).sort().join(),
+      variant: selected_options.map(({group_name, option_name}) => `${group_name}: ${option_name}`).sort().join(),
       quantity
     };
-    categories.forEach((cat, i) => prod[i > 0 ? `item_category${i+1}` : 'item_category'] = cat.name);
+    categories.forEach((cat, i) => prod[i > 0 ? `category${i+1}` : 'category'] = cat.name);
     return prod;
   });
   return {
     type: TRACK_BEGIN_CHECKOUT,
     payload: {
-      event: "begin_checkout",
-      ecommerce: ecomObj,
+      event: "Checkout Started",
+      properties: ecomObj,
     },
   }
 }
