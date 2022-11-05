@@ -146,7 +146,7 @@ const analyticsMiddleware = () => next => action => {
       rudderanalytics.page(payload.name,payload.properties)
       break;
     case "TRACK_VIEW_ITEM_LIST":
-    // case "TRACK_SELECT_ITEM":
+    case "TRACK_SELECT_ITEM":
     // case "TRACK_VIEW_ITEM":
     // case "TRACK_ADD_TO_CART":
     // case "TRACK_REMOVE_FROM_CART":

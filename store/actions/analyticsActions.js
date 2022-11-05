@@ -85,9 +85,9 @@ export const trackViewItemList = (products, list) => (dispatch) => {
  */
 export const trackSelectItem = (products, position, list) => {
   const ecomObj =  {
-    items: []
+    products: []
   };
-  ecomObj.items = products.map((
+  ecomObj.products = products.map((
     {
       name,
       id,
@@ -97,24 +97,24 @@ export const trackSelectItem = (products, position, list) => {
     }
   ) => {
     const prod =  {
-      item_id: id,
-      item_name: name,
-      currency: 'USD',
-      index: position,
-      item_brand: "Blast",
+      product_id: id,
+      sku: id,
+      name: name,
+      position,
+      brand: "Blast",
       price: parseFloat(price.formatted),
-      item_variant: `${variant_groups[0]?.name}: ${variant_groups[0]?.options[0]?.name}`,
-      item_list_id: list.id,
-      item_list_name: list.name,
+      variant: `${variant_groups[0]?.name}: ${variant_groups[0]?.options[0]?.name}`,
+      list_id: list.id,
+      list_name: list.name,
     };
-    categories.forEach((cat, i) => prod[i > 0 ? `item_category${i+1}` : 'item_category'] = cat.name);
+    categories.forEach((cat, i) => prod[i > 0 ? `category${i+1}` : 'category'] = cat.name);
     return prod;
   });
   return {
     type: TRACK_SELECT_ITEM,
     payload: {
-      event: "select_item",
-      ecommerce: ecomObj,
+      event: "Product Clicked",
+      properties: ecomObj.products[0],
     },
   }
 }
@@ -128,20 +128,20 @@ export const trackViewItem = (product) => {
     items: []
   };
   const prod = {
-    item_id: id,
-    item_name: name,
-    currency: 'USD',
-    item_brand: "Blast",
+    product_id: id,
+    sku: id,
+    name: name,
+    brand: "Blast",
     price: parseFloat(price.formatted),
-    item_variant: `${variant_groups[0]?.name}: ${variant_groups[0]?.options[0]?.name}`,
+    variant: `${variant_groups[0]?.name}: ${variant_groups[0]?.options[0]?.name}`,
   };
-  categories.forEach((cat, i) => prod[i > 0 ? `item_category${i+1}` : 'item_category'] = cat.name);
+  categories.forEach((cat, i) => prod[i > 0 ? `category${i+1}` : 'category'] = cat.name);
   ecomObj.items.push(prod);
   return {
     type: TRACK_VIEW_ITEM,
     payload: {
-      event: "view_item",
-      ecommerce: ecomObj,
+      event: "Product Viewed",
+      properties: ecomObj,
     },
   }
 }
