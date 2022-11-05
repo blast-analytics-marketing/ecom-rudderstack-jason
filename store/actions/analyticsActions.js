@@ -401,8 +401,10 @@ export const trackNavigationClick = (link_name) => {
   return {
     type: TRACK_NAVIGATION_CLICK,
     payload: {
-      event: "navigation_click",
-      link_name
+      event: "Navigation Click",
+      properties: {
+        link_name
+      }
     },
   }
 }
@@ -414,7 +416,7 @@ export const trackLogin = () => {
   return {
     type: TRACK_LOGIN,
     payload: {
-      event: "login",
+      event: "Login",
     },
   }
 }

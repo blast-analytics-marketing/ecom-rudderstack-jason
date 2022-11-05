@@ -156,24 +156,14 @@ const analyticsMiddleware = () => next => action => {
     case "TRACK_ADD_PAYMENT_INFO":
     case "TRACK_PURCHASE":
     // case "TRACK_SELECT_PROMOTION":
-      rudderanalytics.track(payload.event,payload.properties)
-      break;
     case "TRACK_NAVIGATION_CLICK":
     case "TRACK_LOGIN":
-      sendEvents({...payload});
+      rudderanalytics.track(payload.event,payload.properties)
       break;
     case "SET_CUSTOMER":
-      sendEvents({...{user: null}});
-      sendEvents({
-        event: "load_user_data",
-        user: {
-          user_id: payload.id,
-          logged_in: payload.isLoggedIn,
-        }
-      });
+      rudderanalytics.itentify(payload.id)
       break;
     case "CLEAR_CUSTOMER":
-      sendEvents({...{user: null}});
       break;
     default:
       break;
