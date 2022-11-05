@@ -35,9 +35,11 @@ export const virtualPageView = (pageProps) => {
  */
 export const viewItemList = (products, list) => {
   const ecomObj =  {
-    items: []
+    list_id: list.id,
+    category: list.name,
+    products: [],
   };
-  ecomObj.items = products.map((
+  ecomObj.products = products.map((
     {
       name,
       id,
@@ -48,24 +50,22 @@ export const viewItemList = (products, list) => {
     index
   ) => {
     const prod =  {
-      item_id: id,
-      item_name: name,
-      currency: 'USD',
-      index,
-      item_brand: "Blast",
+      product_id: id,
+      sku: id,
+      name: name,
+      position: index,
+      brand: "Blast",
       price: parseFloat(price.formatted),
-      item_variant: `${variant_groups[0]?.name}: ${variant_groups[0]?.options[0]?.name}`,
-      item_list_id: list.id,
-      item_list_name: list.name,
+      variant: `${variant_groups[0]?.name}: ${variant_groups[0]?.options[0]?.name}`,
     };
-    categories.forEach((cat, i) => prod[i > 0 ? `item_category${i+1}` : 'item_category'] = cat.name);
+    categories.forEach((cat, i) => prod[i > 0 ? `category${i+1}` : 'category'] = cat.name);
     return prod;
   });
   return {
     type: TRACK_VIEW_ITEM_LIST,
     payload: {
-      event: "view_item_list",
-      ecommerce: ecomObj,
+      event: "Product List Viewed",
+      properties: ecomObj,
     },
   }
 }

@@ -146,18 +146,17 @@ const analyticsMiddleware = () => next => action => {
       rudderanalytics.page(payload.name,payload.properties)
       break;
     case "TRACK_VIEW_ITEM_LIST":
-    case "TRACK_SELECT_ITEM":
-    case "TRACK_VIEW_ITEM":
-    case "TRACK_ADD_TO_CART":
-    case "TRACK_REMOVE_FROM_CART":
-    case "TRACK_VIEW_CART":
-    case "TRACK_BEGIN_CHECKOUT":
-    case "TRACK_ADD_SHIPPING_INFO":
-    case "TRACK_ADD_PAYMENT_INFO":
-    case "TRACK_PURCHASE":
-    case "TRACK_SELECT_PROMOTION":
-      sendEvents({...{ecommerce: null}});
-      sendEvents({...payload});
+    // case "TRACK_SELECT_ITEM":
+    // case "TRACK_VIEW_ITEM":
+    // case "TRACK_ADD_TO_CART":
+    // case "TRACK_REMOVE_FROM_CART":
+    // case "TRACK_VIEW_CART":
+    // case "TRACK_BEGIN_CHECKOUT":
+    // case "TRACK_ADD_SHIPPING_INFO":
+    // case "TRACK_ADD_PAYMENT_INFO":
+    // case "TRACK_PURCHASE":
+    // case "TRACK_SELECT_PROMOTION":
+      rudderanalytics.track(payload.event,payload.properties)
       break;
     case "TRACK_NAVIGATION_CLICK":
     case "TRACK_LOGIN":
