@@ -161,7 +161,7 @@ const analyticsMiddleware = () => next => action => {
       rudderanalytics.track(payload.event,payload.properties)
       break;
     case "SET_CUSTOMER":
-      rudderanalytics.itentify(payload.id)
+      rudderanalytics.identify(payload.id)
       break;
     case "CLEAR_CUSTOMER":
       break;
