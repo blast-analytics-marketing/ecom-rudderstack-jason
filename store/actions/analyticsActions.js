@@ -124,9 +124,6 @@ export const trackSelectItem = (products, position, list) => {
  */
 export const trackViewItem = (product) => {
   const { name, id, price, categories, variant_groups } = product;
-  const ecomObj =  {
-    items: []
-  };
   const prod = {
     product_id: id,
     sku: id,
@@ -136,12 +133,11 @@ export const trackViewItem = (product) => {
     variant: `${variant_groups[0]?.name}: ${variant_groups[0]?.options[0]?.name}`,
   };
   categories.forEach((cat, i) => prod[i > 0 ? `category${i+1}` : 'category'] = cat.name);
-  ecomObj.items.push(prod);
   return {
     type: TRACK_VIEW_ITEM,
     payload: {
       event: "Product Viewed",
-      properties: ecomObj,
+      properties: prod,
     },
   }
 }
@@ -166,25 +162,21 @@ export const trackAddToCart = (product, quantity, selected_options) => {
   } else {
     variant = createVariantFromGroups(selected_options);
   }
-  const ecomObj =  {
-    items: []
-  };
   const prod = {
-    item_id: id,
-    item_name: name,
-    currency: 'USD',
-    item_brand: "Blast",
+    product_id: id,
+    sku: id,
+    name: name,
+    brand: "Blast",
     price: parseFloat(price.formatted),
-    item_variant: variant,
+    variant: variant,
     quantity
   };
-  categories.forEach((cat, i) => prod[i > 0 ? `item_category${i+1}` : 'item_category'] = cat.name);
-  ecomObj.items.push(prod);
+  categories.forEach((cat, i) => prod[i > 0 ? `category${i+1}` : 'category'] = cat.name);
   return {
     type: TRACK_ADD_TO_CART,
     payload: {
-      event: "add_to_cart",
-      ecommerce: ecomObj,
+      event: "Product Added",
+      properties: prod,
     },
   }
 }

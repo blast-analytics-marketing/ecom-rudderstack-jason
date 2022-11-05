@@ -147,8 +147,8 @@ const analyticsMiddleware = () => next => action => {
       break;
     case "TRACK_VIEW_ITEM_LIST":
     case "TRACK_SELECT_ITEM":
-    // case "TRACK_VIEW_ITEM":
-    // case "TRACK_ADD_TO_CART":
+    case "TRACK_VIEW_ITEM":
+    case "TRACK_ADD_TO_CART":
     // case "TRACK_REMOVE_FROM_CART":
     // case "TRACK_VIEW_CART":
     // case "TRACK_BEGIN_CHECKOUT":
