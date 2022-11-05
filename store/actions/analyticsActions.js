@@ -186,25 +186,21 @@ export const trackAddToCart = (product, quantity, selected_options) => {
  */
 export const trackRemoveFromCart = (product, quantity, selected_options) => {
   const { name, id, price, categories } = product;
-  const ecomObj =  {
-    items: []
-  };
   const prod = {
-    item_id: id,
-    item_name: name,
-    currency: 'USD',
-    item_brand: "Blast",
+    product_id: id,
+    sku: id,
+    name: name,
+    brand: "Blast",
     price: parseFloat(price.formatted),
-    item_variant: selected_options.map(({group_name, option_name}) => `${group_name}: ${option_name}`).sort().join(),
+    variant: selected_options.map(({group_name, option_name}) => `${group_name}: ${option_name}`).sort().join(),
     quantity
   };
-  categories.forEach((cat, i) => prod[i > 0 ? `item_category${i+1}` : 'item_category'] = cat.name);
-  ecomObj.items.push(prod);
+  categories.forEach((cat, i) => prod[i > 0 ? `category${i+1}` : 'category'] = cat.name);
   return {
     type: TRACK_REMOVE_FROM_CART,
     payload: {
-      event: "remove_from_cart",
-      ecommerce: ecomObj,
+      event: "Product Removed",
+      properties: prod,
     },
   }
 }
