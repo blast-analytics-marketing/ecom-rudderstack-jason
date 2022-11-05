@@ -143,8 +143,7 @@ const analyticsMiddleware = () => next => action => {
 
   switch(type) {
     case "VIRTUAL_PAGE_VIEW":
-      sendEvents({...{page: null}});
-      sendEvents({...payload});
+      rudderanalytics.page(payload.name,payload.properties)
       break;
     case "TRACK_VIEW_ITEM_LIST":
     case "TRACK_SELECT_ITEM":

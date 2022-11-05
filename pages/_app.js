@@ -28,17 +28,21 @@ const MyApp = ({Component, pageProps}) => {
     let pageData = {};
     if(/\/account\/\[id\]/.test(router.pathname)) {
       pageData = {
-        page_name: 'View Order',
-        page_category: 'Account',
-        page_route: router.pathname,
-        page_title: 'View Order | Blast Analytics | Store',
+        name: 'View Order',
+        properties: {
+          page_category: 'Account',
+          page_route: router.pathname,
+          page_title: 'View Order | Blast Analytics | Store',
+        }
       };
     } else {
       pageData = {
-        page_name: pageProps.page || null,
-        page_category: pageProps.category || null,
-        page_route: router.pathname,
-        page_title: pageProps.title,
+        name: pageProps.page || null,
+        properties: {
+          page_category: pageProps.category || null,
+          page_route: router.pathname,
+          page_title: pageProps.title,
+        }
       };
     }
     store.dispatch(virtualPageView(pageData))
