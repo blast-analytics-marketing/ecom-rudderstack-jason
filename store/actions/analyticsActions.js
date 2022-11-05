@@ -327,7 +327,7 @@ export const trackPurchase = (products, orderReceipt) => {
   const ecomObj =  {
     currency: 'USD',
     total: parseFloat(orderReceipt.order_value.formatted),
-    revenue: parseFloat(orderReceipt.order_value.formatted),
+    revenue: parseFloat(orderReceipt.order.subtotal.formatted),
     coupon: orderReceipt.order.discount.code,
     payment_method: orderReceipt.transactions.map(trans => {
       return trans.payment_source.brand
